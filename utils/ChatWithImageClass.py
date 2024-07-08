@@ -14,9 +14,13 @@ class ChatWithImageClass:
     def __init__(self, api_key=os.getenv('GOOGLE_CLOUD_VISION_API_KEY')):
         self.model_name = "Salesforce/blip-image-captioning-large"
         self.processor = BlipProcessor.from_pretrained(self.model_name)
-        # self.model = BlipForConditionalGeneration.from_pretrained(self.model_name)
+        self.model = None  # Delay loading of the model
         self.api_key = api_key         
 
+    def load_model(self):
+        if self.model is None:
+            self.model = BlipForConditionalGeneration.from_pretrained(self.model_name)
+    
     def clean_text(self, text):
         # Keep only Hebrew, English characters, and numbers
         text = re.sub(r'[^א-תA-Za-z0-9\s]', '', text)
@@ -26,6 +30,7 @@ class ChatWithImageClass:
     
     def get_image_captions(self, image_url):
         try:
+            self.load_model()
             image = self.get_image_from_url(image_url)
             if image:
                 description = self.get_image_description(image)
