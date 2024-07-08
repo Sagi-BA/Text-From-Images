@@ -7,7 +7,9 @@
 
 ## Watch the video tutorial
 
-[![Watch the video](https://img.youtube.com/vi/xj8COkST--8/maxresdefault.jpg)](https://youtu.be/xj8COkST--8)
+![Alt text](https://i.imgur.com/OqLfIFg.jpeg)
+
+<!-- [![Watch the video](https://img.youtube.com/vi/xj8COkST--8/maxresdefault.jpg)](https://youtu.be/xj8COkST--8) -->
 
 This application allows users to upload images and extract the text from them.
 After the text is extracted they can edit the text and copy it to the clipboard
