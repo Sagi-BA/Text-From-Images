@@ -7,12 +7,12 @@
 
 ## Watch the video tutorial
 
+This application allows users to upload images and extract the text from them.
+After the text is extracted they can edit the text and copy it to the clipboard
+
 ![Alt text](https://i.imgur.com/OqLfIFg.jpeg)
 
 <!-- [![Watch the video](https://img.youtube.com/vi/xj8COkST--8/maxresdefault.jpg)](https://youtu.be/xj8COkST--8) -->
-
-This application allows users to upload images and extract the text from them.
-After the text is extracted they can edit the text and copy it to the clipboard
 
 [![Support](https://img.shields.io/badge/linktree-white?style=for-the-badge&logo=linktree&logoColor=43E55E)](https://linktr.ee/sagib?lt_utm_source=lt_share_link#373198503)
 [![Support](https://img.shields.io/badge/Buy_Me_A_Coffee-white?style=for-the-badge&logo=buymeacoffee&logoColor=FFDD00)](https://buymeacoffee.com/sagibar)
