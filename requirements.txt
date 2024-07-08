@@ -8,4 +8,6 @@ torchvision
 transformers
 logging
 python-dotenv
+requests
+numpy
 # easyocr
