@@ -3,6 +3,8 @@ pytesseract
 pillow
 pyperclip
 google-cloud-vision
+torch
+torchvision
 transformers
 logging
 python-dotenv
