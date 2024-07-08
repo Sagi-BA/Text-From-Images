@@ -87,7 +87,11 @@ def main():
                 file_path = save_uploaded_file(uploaded_file, UPLOAD_DIR)
                 st.image(file_path, caption=f"תמונה שהועלתה: {uploaded_file.name}", use_column_width=True)        
                 
+<<<<<<< HEAD
                 text = st.session_state.google_model.detect_text_with_googleapi(file_path)
+=======
+                text = st.session_state.google_model.detect_text_with_googleapi(save_uploaded_file(uploaded_file))
+>>>>>>> 62956203b12a838e880f617b5768b0bee1d8c059
                 text = text.strip() if text else ""
                 text_area_id = f'text_area_{i}'
                 st.text_area(f"טקסט שחולץ {i+1}", value=text, key=text_area_id, height=200)
