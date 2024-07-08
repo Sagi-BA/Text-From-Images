@@ -2,8 +2,6 @@ import base64
 import os
 import re
 from io import BytesIO
-import logging
-from urllib.parse import urlparse
 import requests
 from transformers import BlipProcessor, BlipForConditionalGeneration
 from PIL import Image
@@ -17,7 +15,6 @@ class ChatWithImageClass:
         self.model_name = "Salesforce/blip-image-captioning-large"
         self.processor = BlipProcessor.from_pretrained(self.model_name)
         self.model = BlipForConditionalGeneration.from_pretrained(self.model_name)
-        # self.logger = logging.getLogger(__name__)
         self.api_key = api_key         
 
     def clean_text(self, text):
@@ -28,38 +25,37 @@ class ChatWithImageClass:
         return text
     
     def get_image_captions(self, image_url):
-        print('sagi')
-        print(type(image_url))
         try:
             image = self.get_image_from_url(image_url)
-            return self.get_image_description(image)        
-            
+            if image:
+                description = self.get_image_description(image)
+                return description
+            else:
+                return False
         except Exception as e:        
-            # logging.error(f"Failed to return message: " + str(e)) 
+            print(f"Failed to return message: {str(e)}") 
             return False
 
     def get_image_from_url(self, url):
-        response = requests.get(url)
-
-        if response.status_code == 200:
+        try:
+            response = requests.get(url)
+            response.raise_for_status()
             return Image.open(BytesIO(response.content))
-        else:
-            print(f"Failed to download image. Status code: {response.status_code}") 
+        except Exception as e:
+            print(f"Failed to download image: {str(e)}") 
             return False   
 
-    def get_image_description(self, image_url):
+    def get_image_description(self, image):
         try:
-            input = self.processor(image_url, return_tensors="pt")
-            out = self.model.generate(**input, max_new_tokens=20)
+            input_data = self.processor(image, return_tensors="pt")
+            out = self.model.generate(**input_data, max_new_tokens=20)
             description = self.processor.decode(out[0], skip_special_tokens=True)
+            return description
         except Exception as e:        
-            # logging.error(f"Failed to return message: " + str(e)) 
+            print(f"Failed to get image description: {str(e)}") 
             return False
 
-        return description
-
     def detect_text_with_googleapi(self, image_path):
-        
         try:
             with open(image_path, 'rb') as image_file:
                 content = image_file.read()
@@ -82,20 +78,12 @@ class ChatWithImageClass:
                 return ""
 
             text = result['responses'][0]['textAnnotations'][0]['description']
-
-            # cleaned_text = self.clean_text(text)
+            return self.clean_text(text)
         except Exception as e:
-            # logging.error(f"Failed to extract text from image: " + str(e))
+            print(f"Failed to extract text from image: {str(e)}")
             return False
-        
-        print('Start detect_text_with_googleapi')
-        return text
     
 if __name__ == '__main__':
     model = ChatWithImageClass()
     description = model.get_image_captions('https://t4.ftcdn.net/jpg/05/01/84/43/360_F_501844341_cA5xxjYPd4hL19XMImLMj5sCnP1Ib4hI.jpg')
     print(description)
-
-    # Example usage of the new text extraction method
-    text = model.extract_text_from_image('/path/to/your/image.jpg')
-    print(text)
