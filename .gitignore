@@ -1,6 +1,6 @@
 *.code-workspace
 .env
 data
-
+temp
 # Ignore all __pycache__ directories
 **/__pycache__/
