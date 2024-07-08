@@ -5,4 +5,5 @@ pyperclip
 google-cloud-vision
 transformers
 logging
+dotenv
 # easyocr

@@ -2,7 +2,7 @@
 
 # 👀 Convert Text from images
 
-> You can try free app [here](https://sagi-images-to-pdf.streamlit.app/)
+> You can try free app [here](https://sagi-detect-text-from-images.streamlit.app/)
 > You can try price app [here](https://convertio.co/ocr/hebrew/)
 
 ## Watch the video tutorial
