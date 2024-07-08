@@ -1,0 +1,8 @@
+streamlit 
+pytesseract 
+pillow
+pyperclip
+google-cloud-vision
+transformers
+logging
+# easyocr
