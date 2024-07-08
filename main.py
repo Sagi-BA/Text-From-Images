@@ -9,6 +9,7 @@ from streamlit.components.v1 import html
 
 # Initialize logging
 # logging.basicConfig(level=logging.INFO)
+UPLOAD_DIR = "uploads"
 
 # Ensure environment variable is set
 if os.getenv("GOOGLE_CLOUD_VISION_API_KEY") is None or os.getenv("GOOGLE_CLOUD_VISION_API_KEY") == "":
@@ -82,9 +83,11 @@ def main():
         for i, uploaded_file in enumerate(uploaded_files):
             # Display the uploaded image
             with st.spinner('מחלץ טקסט... אנא המתן.'):
-                st.image(uploaded_file, caption=f"תמונה שהועלתה: {uploaded_file.name}", use_column_width=True)        
+                # Save the file to the uploads directory
+                file_path = save_uploaded_file(uploaded_file, UPLOAD_DIR)
+                st.image(file_path, caption=f"תמונה שהועלתה: {uploaded_file.name}", use_column_width=True)        
                 
-                text = "sss" #st.session_state.google_model.detect_text_with_googleapi(save_uploaded_file(uploaded_file))
+                text = st.session_state.google_model.detect_text_with_googleapi(file_path)
                 text = text.strip() if text else ""
                 text_area_id = f'text_area_{i}'
                 st.text_area(f"טקסט שחולץ {i+1}", value=text, key=text_area_id, height=200)
