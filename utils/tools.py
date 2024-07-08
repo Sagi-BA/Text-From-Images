@@ -1,22 +1,23 @@
 import os
+from io import BytesIO
 
-# def save_uploaded_file(uploaded_file):
-#     temp_dir = 'uploads'
-#     if not os.path.exists(temp_dir):
-#         os.makedirs(temp_dir)
-#     temp_file_path = os.path.join(temp_dir, uploaded_file.name)
-#     with open(temp_file_path, 'wb') as f:
-#         f.write(uploaded_file.getbuffer())
-#     return temp_file_path
-
-def save_uploaded_file(uploaded_file, upload_dir="uploads"):
+def save_uploaded_file(uploaded_file, upload_dir="uploads", filename=None):
     """
     Save the uploaded file to the specified directory and return the file path.
     """
     if not os.path.exists(upload_dir):
         os.makedirs(upload_dir)
     
-    file_path = os.path.join(upload_dir, uploaded_file.name)
-    with open(file_path, "wb") as f:
-        f.write(uploaded_file.getbuffer())
+    if filename is None:
+        filename = uploaded_file.name
+
+    file_path = os.path.join(upload_dir, filename)
+    
+    if isinstance(uploaded_file, BytesIO):
+        with open(file_path, "wb") as f:
+            f.write(uploaded_file.getvalue())
+    else:
+        with open(file_path, "wb") as f:
+            f.write(uploaded_file.getbuffer())
+    
     return file_path
