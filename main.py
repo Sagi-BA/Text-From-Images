@@ -10,15 +10,14 @@ from streamlit.components.v1 import html
 # Initialize logging
 # logging.basicConfig(level=logging.INFO)
 
+# Ensure environment variable is set
+if os.getenv("GOOGLE_CLOUD_VISION_API_KEY") is None or os.getenv("GOOGLE_CLOUD_VISION_API_KEY") == "":
+    st.error("GOOGLE_CLOUD_VISION_API_KEY is not set. Please set it in the environment variables.")
+    st.stop()
 
 # Initialize the model once
 if 'google_model' not in st.session_state:
     st.session_state.google_model = ChatWithImageClass()
-
-if os.getenv("GOOGLE_CLOUD_VISION_API_KEY") is None or os.getenv("GOOGLE_CLOUD_VISION_API_KEY") == "":
-    print("GOOGLE_CLOUD_VISION_API_KEY is not set")
-    exit(1)
-
 
 # Increment user count if this is a new session
 if 'counted' not in st.session_state:
