@@ -84,7 +84,7 @@ def main():
             with st.spinner('מחלץ טקסט... אנא המתן.'):
                 st.image(uploaded_file, caption=f"תמונה שהועלתה: {uploaded_file.name}", use_column_width=True)        
                 
-                text = "sss" #st.session_state.google_model.detect_text_with_googleapi(save_uploaded_file(uploaded_file))
+                text = st.session_state.google_model.detect_text_with_googleapi(save_uploaded_file(uploaded_file))
                 text = text.strip() if text else ""
                 text_area_id = f'text_area_{i}'
                 st.text_area(f"טקסט שחולץ {i+1}", value=text, key=text_area_id, height=200)
