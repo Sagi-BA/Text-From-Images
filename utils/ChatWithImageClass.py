@@ -13,7 +13,7 @@ load_dotenv()
 class ChatWithImageClass: 
     def __init__(self, api_key=os.getenv('GOOGLE_CLOUD_VISION_API_KEY')):
         self.model_name = "Salesforce/blip-image-captioning-large"
-        # self.processor = BlipProcessor.from_pretrained(self.model_name)
+        self.processor = BlipProcessor.from_pretrained(self.model_name)
         # self.model = BlipForConditionalGeneration.from_pretrained(self.model_name)
         self.api_key = api_key         
 
