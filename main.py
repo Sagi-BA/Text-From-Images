@@ -54,7 +54,7 @@ def clipboard_copy_clicked(text_area_id):
 
 def start_over():
     # Keys to keep
-    keys_to_keep = ['counted', 'on_session_end', 'google_model', 'telegram_sender', 'process_image']
+    keys_to_keep = ['counted', 'on_session_end', 'google_model', 'telegram_sender', 'text_key']
     
     # Remove all keys except the ones we want to keep
     for key in list(st.session_state.keys()):
@@ -67,26 +67,32 @@ def start_over():
     print("Session state cleared for Start Over")
 
 def process_image(image, filename):
-    with st.spinner('מחלץ טקסט... אנא המתן.'):
-        # Save the file to the uploads directory
-        file_path = save_uploaded_file(image, UPLOAD_DIR, filename)
-        st.image(file_path, caption=f"תמונה שהועלתה: {filename}", use_column_width=True)        
-        
-        text = st.session_state.google_model.detect_text_with_googleapi(file_path)
-        text = text.strip() if text else "לא נמצא טקסט בתמונה"
-        text_area_id = f'text_area_{filename}'
-        st.text_area(f"טקסט שחולץ: {filename}", value=text, key=text_area_id, height=200)
-        
-        # Send image and text to Telegram asynchronously
-        asyncio.run(st.session_state.telegram_sender.send_image_and_text(file_path, text))
-        
-        # Create a unique key for the button
-        button_key = f'button_{filename}'
-        
-        # Use st.button with on_click parameter
-        st.button('העתק ללוח', key=button_key, on_click=clipboard_copy_clicked, args=(text_area_id,))
-        
-        st.markdown("---")  # Add a separator between images
+    file_path = save_uploaded_file(image, UPLOAD_DIR, filename)
+    # st.image(file_path, caption=f"תמונה שהועלתה: {filename}", use_column_width=True)        
+    st.image(file_path, use_column_width=True)
+    
+    text_key = f'text_{filename}'
+    if text_key not in st.session_state:
+        with st.spinner('מחלץ טקסט... אנא המתן.'):
+            text = st.session_state.google_model.detect_text_with_googleapi(file_path)
+            text = text.strip() if text else "לא נמצא טקסט בתמונה"
+            st.session_state[text_key] = text
+            
+            # Send image and text to Telegram asynchronously
+            asyncio.run(st.session_state.telegram_sender.send_image_and_text(file_path, text))
+    
+    text = st.session_state[text_key]
+    text_area_id = f'text_area_{filename}'
+    # st.text_area(f"טקסט שחולץ: {filename}", value=text, key=text_area_id, height=200)
+    st.text_area(f"טקסט שחולץ מהתמונה:", value=text, key=text_area_id, height=200)
+    
+    # Create a unique key for the button
+    button_key = f'button_{filename}'
+    
+    # Use st.button with on_click parameter
+    st.button('העתק ללוח', key=button_key, on_click=clipboard_copy_clicked, args=(text_area_id,))
+    
+    st.markdown("---")  # Add a separator between images
 
 def main():
     # Initialize Streamlit configuration and load resources
