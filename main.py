@@ -16,8 +16,8 @@ if os.getenv("GOOGLE_CLOUD_VISION_API_KEY") is None or os.getenv("GOOGLE_CLOUD_V
     st.stop()
 
 # Initialize the model once
-if 'google_model' not in st.session_state:
-    st.session_state.google_model = ChatWithImageClass()
+# if 'google_model' not in st.session_state:
+#     st.session_state.google_model = ChatWithImageClass()
 
 # Increment user count if this is a new session
 if 'counted' not in st.session_state:
@@ -84,7 +84,7 @@ def main():
             with st.spinner('מחלץ טקסט... אנא המתן.'):
                 st.image(uploaded_file, caption=f"תמונה שהועלתה: {uploaded_file.name}", use_column_width=True)        
                 
-                text = st.session_state.google_model.detect_text_with_googleapi(save_uploaded_file(uploaded_file))
+                text = "sss" #st.session_state.google_model.detect_text_with_googleapi(save_uploaded_file(uploaded_file))
                 text = text.strip() if text else ""
                 text_area_id = f'text_area_{i}'
                 st.text_area(f"טקסט שחולץ {i+1}", value=text, key=text_area_id, height=200)
