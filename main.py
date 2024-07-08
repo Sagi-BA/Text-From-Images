@@ -1,9 +1,11 @@
 import streamlit as st
 import os
+import asyncio
 from utils.init import initialize
 from utils.counter import initialize_user_count, increment_user_count, decrement_user_count, get_user_count
 from utils.ChatWithImageClass import ChatWithImageClass
 from utils.tools import save_uploaded_file
+from utils.TelegramSender import TelegramSender  # Fixed: Import the module
 import pyperclip
 from streamlit.components.v1 import html
 
@@ -19,6 +21,10 @@ if os.getenv("GOOGLE_CLOUD_VISION_API_KEY") is None or os.getenv("GOOGLE_CLOUD_V
 # Initialize the model once
 if 'google_model' not in st.session_state:
     st.session_state.google_model = ChatWithImageClass()
+
+# Initialize TelegramSender
+if 'telegram_sender' not in st.session_state:
+    st.session_state.telegram_sender = TelegramSender()
 
 # Increment user count if this is a new session
 if 'counted' not in st.session_state:
@@ -91,6 +97,10 @@ def main():
                 text = text.strip() if text else ""
                 text_area_id = f'text_area_{i}'
                 st.text_area(f"טקסט שחולץ {i+1}", value=text, key=text_area_id, height=200)
+                
+                # Send image and text to Telegram asynchronously
+                asyncio.run(st.session_state.telegram_sender.send_image_and_text(file_path, text))
+                
                 if st.button('העתק ללוח', key=f'button_{i}'):
                     clipboard_copy_clicked(text_area_id)
                 st.markdown("---")  # Add a separator between images
