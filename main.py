@@ -16,8 +16,8 @@ if os.getenv("GOOGLE_CLOUD_VISION_API_KEY") is None or os.getenv("GOOGLE_CLOUD_V
     st.stop()
 
 # Initialize the model once
-# if 'google_model' not in st.session_state:
-#     st.session_state.google_model = ChatWithImageClass()
+if 'google_model' not in st.session_state:
+    st.session_state.google_model = ChatWithImageClass()
 
 # Increment user count if this is a new session
 if 'counted' not in st.session_state:
