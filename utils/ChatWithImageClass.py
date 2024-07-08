@@ -4,11 +4,9 @@ import re
 from io import BytesIO
 import logging
 from urllib.parse import urlparse
-import requests, os
-from pathlib import Path
+import requests
 from transformers import BlipProcessor, BlipForConditionalGeneration
 from PIL import Image
-from google.cloud import vision
 from dotenv import load_dotenv
 
 # Load environment variables

@@ -1,5 +1,5 @@
 import streamlit as st
-import logging
+import os
 from utils.init import initialize
 from utils.counter import initialize_user_count, increment_user_count, decrement_user_count, get_user_count
 from utils.ChatWithImageClass import ChatWithImageClass
@@ -8,7 +8,11 @@ import pyperclip
 from streamlit.components.v1 import html
 
 # Initialize logging
-logging.basicConfig(level=logging.INFO)
+# logging.basicConfig(level=logging.INFO)
+
+if os.getenv("GOOGLE_CLOUD_VISION_API_KEY") is None or os.getenv("GOOGLE_CLOUD_VISION_API_KEY") == "":
+    print("GOOGLE_CLOUD_VISION_API_KEY is not set")
+    exit(1)
 
 # Initialize the model once
 if 'google_model' not in st.session_state:
@@ -19,14 +23,14 @@ def on_session_end():
     decrement_user_count()
 
 def clipboard_copy_clicked(text_area_id):
-    logging.info(f"clipboard_copy_clicked called with text_area_id: {text_area_id}")
+    print(f"clipboard_copy_clicked called with text_area_id: {text_area_id}")
     if text_area_id in st.session_state:
         text = st.session_state[text_area_id]
         pyperclip.copy(text)
-        logging.info(f"Text copied to clipboard: {text[:50]}...")  # Log first 50 chars
+        print(f"Text copied to clipboard: {text[:50]}...")  # Log first 50 chars
         st.success("הטקסט הועתק ללוח בהצלחה!", icon="✅")
     else:
-        logging.error(f"text_area_id {text_area_id} not found in session_state")
+        print(f"text_area_id {text_area_id} not found in session_state")
         st.error(f"Error: Could not find text for {text_area_id}")
 
 def start_over():
@@ -41,7 +45,7 @@ def start_over():
     # Increment the file uploader key to force a reset
     st.session_state['file_uploader_key'] = st.session_state.get('file_uploader_key', 0) + 1
     
-    logging.info("Session state cleared for Start Over")
+    print("Session state cleared for Start Over")
 
 st.session_state.on_session_end = on_session_end
 
