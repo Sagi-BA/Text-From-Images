@@ -6,7 +6,7 @@ google-cloud-vision
 torch
 torchvision
 transformers
-logging
+# logging
 python-dotenv
 requests
 numpy

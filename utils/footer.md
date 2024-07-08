@@ -27,6 +27,6 @@
 
 ### 💻 GitHub
 
-[![GitHub Repository](https://img.shields.io/badge/GitHub_Repository-white?style=for-the-badge&logo=github&logoColor=181717)](https://github.com/Sagi-BA/images-to-pdf)
+[![GitHub Repository](https://img.shields.io/badge/GitHub_Repository-white?style=for-the-badge&logo=github&logoColor=181717)](https://github.com/Sagi-BA/Text-From-Images)
 
 #### נוצר על ידי שגיא בר און בתאריך 7/7/2024
