@@ -1,3 +1,3 @@
-# חילוץ טקסט מתמונות 📷⬅️📄
+![TEXT FROM IMAGES](https://i.imgur.com/OqLfIFg.jpeg "חילוץ טקסט מתמונות ")
 
 אפליקציה המאפשרת לעלות כמה תמונות שרוצים מהמחשב או מהמצלמה והיא תחלץ רק את הטקסט

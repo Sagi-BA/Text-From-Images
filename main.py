@@ -80,6 +80,9 @@ def main():
     # Header
     st.markdown(header_content)
 
+    # Add the promotional image
+    # st.image("data/promotional_image.jpeg", caption="From Image to Text in 00:02 Sec", use_column_width=True)
+
     # Add custom CSS for button styling
     st.markdown("""
     <style>
