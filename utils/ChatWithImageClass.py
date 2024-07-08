@@ -19,7 +19,7 @@ class ChatWithImageClass:
         self.model_name = "Salesforce/blip-image-captioning-large"
         self.processor = BlipProcessor.from_pretrained(self.model_name)
         self.model = BlipForConditionalGeneration.from_pretrained(self.model_name)
-        self.logger = logging.getLogger(__name__)
+        # self.logger = logging.getLogger(__name__)
         self.api_key = api_key         
 
     def clean_text(self, text):
@@ -37,7 +37,7 @@ class ChatWithImageClass:
             return self.get_image_description(image)        
             
         except Exception as e:        
-            logging.error(f"Failed to return message: " + str(e)) 
+            # logging.error(f"Failed to return message: " + str(e)) 
             return False
 
     def get_image_from_url(self, url):
@@ -55,7 +55,7 @@ class ChatWithImageClass:
             out = self.model.generate(**input, max_new_tokens=20)
             description = self.processor.decode(out[0], skip_special_tokens=True)
         except Exception as e:        
-            logging.error(f"Failed to return message: " + str(e)) 
+            # logging.error(f"Failed to return message: " + str(e)) 
             return False
 
         return description
@@ -87,7 +87,7 @@ class ChatWithImageClass:
 
             # cleaned_text = self.clean_text(text)
         except Exception as e:
-            logging.error(f"Failed to extract text from image: " + str(e))
+            # logging.error(f"Failed to extract text from image: " + str(e))
             return False
         
         print('Start detect_text_with_googleapi')
