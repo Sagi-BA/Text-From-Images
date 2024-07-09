@@ -1,3 +1,3 @@
-![TEXT FROM IMAGES](https://i.imgur.com/OqLfIFg.jpeg "חילוץ טקסט מתמונות ")
+# אפליקציה המאפשרת לעלות כמה תמונות שרוצים מהמחשב או מהמצלמה והיא תחלץ רק את הטקסט
 
-אפליקציה המאפשרת לעלות כמה תמונות שרוצים מהמחשב או מהמצלמה והיא תחלץ רק את הטקסט
+[![Watch the video](https://img.youtube.com/vi/vdaXGeOyvbE/maxresdefault.jpg)](https://youtu.be/vdaXGeOyvbE)
